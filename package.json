@@ -1,0 +1,14 @@
+{
+  "name": "terraform",
+  "version": "0.0.1",
+  "description": "",
+  "scripts": {
+    "package": "mkdirp build && bestzip build/lambda.zip lambda.js"
+  },
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "bestzip": "^2.1.4",
+    "mkdirp": "^0.5.1"
+  }
+}
