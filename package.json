@@ -5,7 +5,7 @@
   "scripts": {
     "package": "mkdirp build && bestzip build/lambda.zip lambda.js",
     "deploy": "npm run package && terraform init terraform && terraform apply terraform",
-    "remove": "terraform destroy terraform"
+    "remove": "terraform state rm module.basic_lamda.aws_lambda_permission.hello_world && terraform state rm module.another_lambda.aws_lambda_permission.hello_world && terraform destroy terraform"
   },
   "author": "",
   "license": "ISC",

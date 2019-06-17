@@ -18,7 +18,7 @@ resource "aws_lambda_permission" "hello_world" {
   action        = "lambda:InvokeFunction"
   function_name = "${aws_lambda_function.basic_lambda.function_name}"
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "arn:aws:execute-api:eu-west-2:${data.aws_caller_identity.current.account_id}:${var.api_id}/*/${aws_api_gateway_method.method.http_method}${aws_api_gateway_resource.hello.path}"
+  source_arn    = "${aws_api_gateway_deployment.default.execution_arn}/*/*"
 }
 
 
@@ -42,7 +42,6 @@ resource "aws_api_gateway_integration" "integration" {
   integration_http_method = "POST"
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/${aws_lambda_function.basic_lambda.arn}/invocations"
-  depends_on              = ["aws_lambda_permission.hello_world"]
   # Need time for the role to propagate in AWS, otherwise
   # it will not be available when the lambda is created
   provisioner "local-exec" {
