@@ -43,6 +43,11 @@ resource "aws_api_gateway_integration" "integration" {
   type                    = "AWS_PROXY"
   uri                     = "arn:aws:apigateway:eu-west-2:lambda:path/2015-03-31/functions/${aws_lambda_function.basic_lambda.arn}/invocations"
   depends_on              = ["aws_lambda_permission.hello_world"]
+  # Need time for the role to propagate in AWS, otherwise
+  # it will not be available when the lambda is created
+  provisioner "local-exec" {
+    command = "sleep 10"
+  }
 }
 
 resource "aws_api_gateway_deployment" "default" {

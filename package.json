@@ -3,7 +3,9 @@
   "version": "0.0.1",
   "description": "",
   "scripts": {
-    "package": "mkdirp build && bestzip build/lambda.zip lambda.js"
+    "package": "mkdirp build && bestzip build/lambda.zip lambda.js",
+    "deploy": "npm run package && terraform init terraform && terraform apply terraform",
+    "remove": "terraform destroy terraform"
   },
   "author": "",
   "license": "ISC",
