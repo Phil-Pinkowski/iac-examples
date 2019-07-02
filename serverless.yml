@@ -2,14 +2,23 @@ service: example
 
 provider:
   name: aws
+  # Default the runtime - can be overridden
   runtime: nodejs10.x
 
 functions:
   basicLambda:
+  
+    # Handler function that will be called
     handler: lambda.handler
+
+    # Name of the lambda when deployed to AWS
     name: ${self:provider.stage}-basicLambda
+
+    # Setup environment variables
     environment:
       TEST: World
+
+    # Setup lambda trigger events, in this case an API Gateway http GET request
     events:
       - http:
           path: hello
